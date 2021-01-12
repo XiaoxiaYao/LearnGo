@@ -9,7 +9,14 @@ var (
 )
 
 func main() {
+	const PI = 3.14
+	const (
+		cpp = iota
+		java
+	)
 	fmt.Println("Hello world")
 	fmt.Println(name)
 	fmt.Println(firstName)
+	fmt.Println(PI)
+	fmt.Println(java)
 }
