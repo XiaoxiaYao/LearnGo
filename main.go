@@ -32,7 +32,21 @@ func main() {
 		panic("unsupported")
 	}
 
-	fmt.Println(grade(100))
+	fmt.Println(grade(0))
+
+	array1 := [...]int{1, 2}
+	fmt.Println(array1)
+	for index, item := range array1 {
+		fmt.Println(index, item)
+	}
+
+	s2 := make([]int, 16)
+	fmt.Println(s2)
+
+	m := map[string]string{
+		"name": "michael",
+	}
+	fmt.Println(m)
 }
 
 func grade(score int) string {
