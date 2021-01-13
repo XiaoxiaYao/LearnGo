@@ -19,4 +19,30 @@ func main() {
 	fmt.Println(firstName)
 	fmt.Println(PI)
 	fmt.Println(java)
+
+	if PI == 3.14 {
+		fmt.Println("It's equal to 3.14")
+	}
+
+	var result int
+	switch result {
+	case 0:
+		fmt.Println("Hi")
+	default:
+		panic("unsupported")
+	}
+
+	fmt.Println(grade(100))
+}
+
+func grade(score int) string {
+	g := ""
+	switch {
+	case score < 60:
+		g = "F"
+	default:
+		panic(fmt.Sprint("wrong: %d", score))
+	}
+
+	return g
 }
