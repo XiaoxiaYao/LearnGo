@@ -5,14 +5,15 @@ import (
 	"time"
 )
 
+func worker(id int, c chan int) {
+	for {
+		fmt.Printf("worker %d received %c\n", id, <-c)
+	}
+}
+
 func createWorker(id int) chan int {
 	c := make(chan int)
-	go func() {
-		for {
-			fmt.Printf("worker %d received %c\n", id, <-c)
-		}
-	}()
-
+	go worker(id, c)
 	return c
 }
 
@@ -28,6 +29,17 @@ func chanDemo() {
 	time.Sleep(time.Millisecond)
 }
 
+func bufferedChannel() {
+	c := make(chan int, 3)
+	go worker(0, c)
+	c <- '1'
+	c <- '1'
+	c <- '1'
+	c <- '1'
+	time.Sleep(time.Millisecond)
+}
+
 func main() {
-	chanDemo()
+	bufferedChannel()
+	//chanDemo()
 }
