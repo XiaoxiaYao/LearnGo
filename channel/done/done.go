@@ -5,32 +5,27 @@ import (
 	"sync"
 )
 
-func work(id int, c chan int, wg *sync.WaitGroup) {
-	for n := range c {
+func work(id int, w worker) {
+	for n := range w.in {
 		fmt.Printf("worker %d received %c\n", id, n)
 		//go func() { done <- true }()
-		wg.Done()
+		w.done()
 	}
-	//for {
-	//	n, ok := <-c
-	//	if !ok {
-	//		break
-	//	}
-	//	fmt.Printf("worker %d received %c\n", id, n)
-	//}
 }
 
 type worker struct {
-	in chan int
-	wg *sync.WaitGroup
+	in   chan int
+	done func()
 }
 
 func createWorker(id int, wg *sync.WaitGroup) worker {
 	w := worker{
 		in: make(chan int),
-		wg: wg,
+		done: func() {
+			wg.Done()
+		},
 	}
-	go work(id, w.in, wg)
+	go work(id, w)
 	return w
 }
 
